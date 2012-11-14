@@ -1,0 +1,24 @@
+@book{barcode, 
+ author = " Kato, Hiroko and Keng T. Tan and Douglas Chai",  
+ title = "Barcodes for Mobile Devices",  
+ publisher = "Cambridge",  
+ edition = "1",  
+ year = 2010  
+}  
+@book{bidirecional,
+ author ="Russel, Stuart and Peter Norvig",
+title ="Artificial Inteligence, A Modern Approach",
+publisher= "Prentice Hall",
+edition="3",
+year="2009"
+}
+
+@book{bfs,
+author ="Cormen, H. Thomas and Charles E. Leiserson and Ronald L. Rivest",
+title ="Introduction to Algorithms",
+publisher= "The MIT Press",
+edition="1",
+year="2009"
+
+}
+
