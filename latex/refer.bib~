@@ -20,5 +20,11 @@ publisher= "The MIT Press",
 edition="1",
 year="2009"
 
-}
 
+}
+@misc{aqua,
+Author="Aquaryus",
+Howpublished="\url{http://aquaryus.wordpress.com}",
+Title="Aquaryus's Blog"
+
+}
