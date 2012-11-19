@@ -20,6 +20,16 @@ publisher= {The MIT Press},
 edition={1},
 year=2009
 }
+
+@misc{mybatis,
+	author={Mybatis oficial page},
+	howpublished = "\url{http://www.mybatis.org/core/index.html}"
+}
+@misc{jsp,
+	author={Oracle oficial page},
+	howpublished = "\url{http://www.oracle.com/technetwork/java/overview-138580.html}"
+}
+
 @misc{pgAdmin,
 	author={pgAdmin page},
 	howpublished = "\url{http://www.pgadmin.org/index.php}"
@@ -28,5 +38,7 @@ year=2009
 
 @misc{postgresql,
 	author={Postgresql Brasil community page},
-	howpublished = "\url{http://www.pgadmin.org/index.php}"
+	howpublished = "\url{http://www.postgresql.org.br/sobre}"
 }
+
+

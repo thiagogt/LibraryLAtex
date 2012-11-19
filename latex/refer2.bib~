@@ -21,20 +21,9 @@ edition={1},
 year=2009
 }
 
-@book{k19,
-author ={K19 Treinamentos},
-title ={Desenvolvimento Web com JSF2 e JPA2},
-publisher= {K19 Treinamentos},
-year=2011
-}
-
-@misc{mybatis,
-	author={Mybatis oficial page},
-	howpublished = "\url{http://www.mybatis.org/core/index.html}"
-}
-@misc{jsp,
-	author={Oracle oficial page},
-	howpublished = "\url{http://www.oracle.com/technetwork/java/overview-138580.html}"
+@misc{myBatis,
+	author={pgAdmin page},
+	howpublished = "\url{http://www.pgadmin.org/index.php}"
 }
 
 @misc{pgAdmin,

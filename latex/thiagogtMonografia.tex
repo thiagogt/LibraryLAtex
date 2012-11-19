@@ -98,12 +98,12 @@ alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sem
     Estatística da USP desde 2008 e trabalhando na biblioteca do Instituto de Geociencias da USP em 2010-2012, 
     pude notar que as reclamações numa biblioteca sobre a dificuldade em se achar um livro lideram o ranking de 
     problemas apontados por visitantes que usualmente têm que apelar para a boa vontade dos funcionários, 
-    pois acham muito complicado ou até sem nenhum sentido o modo como as fileiras de livros são identificadas.
+    pois acham muito complicado ou até sem nenhum sentido o modo como as fileiras de livros são identificadas.\\
     
     Em ambos os casos os alunos ainda eram capazes de encontrar seus livros ou teses dado que a maior delas possuia
     não mais que 20.000 exemplares.Contudo, numa biblioteca como a da Faculdade de Filosofia, Letras e Ciências Humanas
     que hoje possui um inventório de mais de 500 mil livros e ainda 600 mil teses\footnote[1]{Dados levantados em janeiro 2012 com a diretora da biblioteca, Maria Aparecida Laet}, a busca se torna completamente inviável
-    sem nenhum auxílio real.
+    sem nenhum auxílio real.\\
    
     
     \section{Parte Objetiva}
@@ -125,12 +125,13 @@ alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sem
     \subsection{Solução}
     
   Inicialmente desenvolvida para dispositivos IOS, essa ferramenta utiliza tags com códigos QR para auxiliar 
-  o reconhecimento da localização atual do visitante.
+  o reconhecimento da localização atual do visitante.\\
+
   O visitante ao entrar numa biblioteca procura essa tag e com seu dispositivo IOS, reconhece o código 
   nela contido.Esse código abre um Web Browser no dispositivo e uma página da biblioteca na internet é 
   mostrada na tela.O visitante digita o livro num campo de busca e uma vez que esse existe nessa biblioteca, 
   a tela do web browser é substituída por uma tela com um mapa que mostra o caminho da tag selecionada 
-  até a fileira onde esta o livro.
+  até a fileira onde esta o livro.\\
   
    Para ser possível a localização do livro, será utilizada a prévia catalogação feita pela biblioteca da 
    posição do mesmo e uma réplica proporcional do mapa real da biblioteca .Essa réplica
@@ -142,7 +143,7 @@ alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sem
    
    
    O mapa será gerado num grafo tipo grid e cada nó está dividido em 4 tipos principais que são QR-Code, Forbidden, Free e Bookshelf 
-   numa classe Node e será baseado nesses tipos que a busca pelo livro dado será feita.
+   numa classe Node e será baseado nesses tipos que a busca pelo livro dado será feita.\\
 
    Como todas as arestas destre grafo tem peso único um, o algoritmo de busca usado é uma Bi-direcional BFS (Breadth-first search) com uma busca saindo da origem(QR-Code
    selecionado pelo visitante) e outra do destino (estante onde está o livro).\\
@@ -162,7 +163,8 @@ Essa busca é feita de uma maneira paralela onde cada thread é um dos pólos do
       Quick Response Code foi inventado por \href{http://www.denso-wave.com/}{DENSO WAVE}, uma empresa Japonesa de captura automática de dados, FA e campos de solução de negócios, em 1994 e foi um dos primeiros códigos de barra 2D
       a ser usado em aplicações onde era necessário uma combinação de camera de aparelhos celulares e códigos de barra 2D.\cite{barcode}Esses códigos trocam barras e espaços
       por pontos e espaços arranjados num vetor ou uma matrix, aumentando consideravelmente a quantidade de dados
-      armazenados num espaço igualmente usado para um código de barra 1D.
+      armazenados num espaço igualmente usado para um código de barra 1D.\\
+
       Apenas em 2002 cameras de celulares foram comercialmente vendidas com dispositivos reconhecedores de Qr-codes e desde
       então uma vasta variedade de aplicativos começou a surgir no Japão e vem tomando o mundo.
 	\begin{figure}[H]
@@ -172,11 +174,11 @@ Essa busca é feita de uma maneira paralela onde cada thread é um dos pólos do
       \end{figure}
 	Em 2006, como parte do Windows Live service, a Microsoft lançou o Windows Live Barcode
       , onde Qr-codes eram usados como ponte para troca de informações entre aparelhos mobile e outras medias como PCs, Tv de plasma
-      e revistas.
+      e revistas.\\
       
       As Qr-Codes geradas para esse projeto passarão para o usuário o endereço de uma página web de busca dos livros da 
       bilioteca em que ele se encontra.Junto nessa URL tem um id do Qr-Code, que mostra para o programa onde no grafo
-      do mapa da biblioteca se encontra o visitante, para dessa maneira poder criar o caminho que o mesmo deve traçar.
+      do mapa da biblioteca se encontra o visitante, para dessa maneira poder criar o caminho que o mesmo deve traçar.\\
       
       
       
@@ -186,21 +188,21 @@ Essa busca é feita de uma maneira paralela onde cada thread é um dos pólos do
       O conjunto \textit{V} é chamado de o \textit{conjunto de vértices} de \textit{G} e seus elementos são chamados 
       de \textit{vértices}.O conjunto \textit{E} é chamado de \textit{conjunto de arestas} de \textit{G} e seus elementos
       são chamados de \textit{arestas}.Existem dois tipos de grafos - grafo direcionados e grafos não-direcionados.
-            \cite{bfs}
+            \cite{bfs}\\
       
       Uma aresta num \textit{grafo não-direcionado} é um conjunto \textit{\{u,v\}} onde \textit{u,v} $\in$ \textit{V} e \textit{u $\neq$ v} que por
       convenção é definida como \textit{$(u,v)$} ou \textit{$(v,u)$} e é possível ir de \textit{u} para \textit{v} e de \textit{v} 
-      para \textit{u}.
+      para \textit{u}.\\
       
       Já num \textit{grafo direcionado} (ou \textit{dígrafo} ) uma aresta é identificada por setas e \textit{$(u,v)$} \textit{$\neq$} \textit{$(v,u)$}.
       
      \begin{figure}[H]
 	\centering
-      	\includegraphics[width=0.9\textwidth]{./imgs/grafo.png}\\[1cm]
+      	\includegraphics[width=0.7\textwidth]{./imgs/grafo.png}\\[1cm]
       	\caption{Grafo retirado do livro \cite{bfs}}
       \end{figure}
       Em ambos os casos uma aresta \textit{(u,v)} pode possuir um \textit{peso} que indica o custo por passar do vértice \textit{u}
-      para o \textit{v}.
+      para o \textit{v}.\\
       
       Um Grid Graph ( grafo do tipo Grid ) é um grafo não-direcionado; uma grade de nós (vértices) \textit{n} x \textit{n} sendo que cada
       nó tem exatamente 4 arestas com exceção dos nós das extremidades.
@@ -210,7 +212,7 @@ Essa busca é feita de uma maneira paralela onde cada thread é um dos pólos do
 	\caption{Representação de um Grid}
       \end{figure}
       Para o LibraryMapper será usado um grafo não-direcinado do tipo Grid alocado numa matriz, sendo que cada vértice do grafo 
-      será um nó da classe Node.Essa Possui os seguintes atributos:
+      será um nó da classe Node.Essa Possui os seguintes atributos:\\
       
       
       \begin{lstlisting}
@@ -224,7 +226,7 @@ public class Node {
     private Integer contentId;
     private Integer idLibrary;
     private String codeIdInitialShelf;
-    private String codeIdFinalShelf;
+    private String codeIdFinalShelf;t
     private String contentType;//Free,QrCode,Forbidden,Shelf
     private Node parentFromBeginNode;
     private Node parentFromEndNode;
@@ -234,30 +236,47 @@ public class Node {
     private String whoMarkedThisNode;
 /*... continua ...*/
 \end{lstlisting}
-      
-      
+\vspace{1cm}
+{\bf idNode:} o id de cada novo Node. \\
+{\bf positionX: }coluna j na matriz Mapa(i,j)\footnote{A matriz que se refere ao mapa da biblioteca}      . \\
+{\bf positionY: }linha i na matriz Mapa(i,j).\\
+{\bf contentsType:} Tipo do Node, podendo variar entre Free, Forbidden, QrCode ou Shelf.\\
+{\bf contentsId: }Uma vez definido qual o tipo do Node é necessário saber qual o seu id na tabela relacionada.Caso não possua uam tabela, como é o caso
+ de Free e Forbidden, o ContentsId é um valor desnecessário\\
+{\bf idLibrary:} o id da biblioteca a qual pertence.\\
+{\bf codeIdInitialShelf: }o identificador inicial de uma estante\\
+{\bf codeIdFinalShelf:}o identificador final de uma estante\\
+{\bf parentFromBeginNode:}o nó pai do nó atual na busca feita partindo do ponto inicial definido \\
+{\bf parentFromEndNode:}o nó pai do nó atual na busca feita partindo do ponto final definido\\
+{\bf isInUse:}flag que define se o nó em questão está sendo usado por outro processo de busca.\\
+{\bf semaphore:} semáforo do nó.\\
+{\bf color:} cor do nó definida no esquema da BFS.\\
+{\bf whoMarkedThisNode:} valor que define qual busca já passou por esse nó.\\
+
+
+      Alguns atributos serão melhores descritos nas próximas seções.\\
       
       
       \subsubsection{Breadth-First Search (BFS)}
       Dado um grafo \textit{G=(V,E)} com um vértice \textit{s} distinto, Breadth-first search explora sistematicamente
       as arestas de \textit{G} para descobrir todo vértice que pode ser alcançado por \textit{s}.Ele computa a distância
       (menor número de arestas) do vértice \textit{s} até todos os vértices que ele possa alcançar.Para manter o controle do progresso da busca, BFS procura cores em cada vértice - branco, cinza e preto. Todos os 
-      vértices começam com cor branca, eventualmente passam para cinza e por fim  ficam pretos.\cite{bfs}
+      vértices começam com cor branca, eventualmente passam para cinza e por fim  ficam pretos.\cite{bfs}\\
       
       Uma vez que um vértice é descoberto ele se torna não-branco.Um vértice só se tornará preto quando todos os vértices
       que são adjacentes á ele tenham sido descobertos, enquanto isso ele será cinza.Isso representa a fronteira entre
       vértices descobertos e não-descobertos como mostrado na Figura~\ref{./imgs/bfs.png}\\
 	
 	Como no pior caso, a busca tem que ser feita em todos os (m) nós de um grafo e passar por todas suas (a) arestas.Como a 
-      BFS não volta nos caminhos que já traçou, a complexidade desse algoritmo é O(a).	 
+      BFS não volta nos caminhos que já traçou, a complexidade desse algoritmo é O(a).\\	 
       \begin{figure}[H]
 	\centering
-      	\includegraphics[width=0.70\textwidth]{./imgs/bfs.png}
+      	\includegraphics[width=0.50\textwidth]{./imgs/bfs.png}
 	\caption{BFS retirada do livro \cite{bfs}}
 	\label{./imgs/bfs.png}
       \end{figure}
       Além das cores, nesse projeto essa BFS distingue entre nós (vértices) do tipo Free, Bookshelf, Qr-Code e Forbidden e será 
-      aplicada de uma maneira Bi-direcional.
+      aplicada de uma maneira Bi-direcional.\\
       
       \subsubsection{Bi-directional BFS}
 	A idéia por trás de uma busca Bi-direcional é fazer duas buscas rodarem simultaneamente - Uma "para frente", 	 
@@ -272,36 +291,37 @@ public class Node {
 	iniciará sua busca paralelamente liberando assim duas threads.Caso uma thread chegue em um nó que já foi 
 	visitado ela define aquele nó como o "meio do caminho" e a partir dele gera a rota inteira do mapa.Mas caso o nó que
 	chegue esteja sendo visitado, ela para e abandona o que estiver fazendo para depois ser reciclada num outro novo processo.
-	Nas próximas seções serão demonstradas com maiores detalhes, como essa busca foi implementada no Library Mapper.
+	Nas próximas seções serão demonstradas com maiores detalhes, como essa busca foi implementada no Library Mapper.\\
  
 	Pela profundidade da busca ter caído pela metade, ou seja, no máximo uma busca tem que ir até a metade do grafo, a 
-	complexidade do algoritmo é O(a/2).
+	complexidade do algoritmo é O(a/2).\\
 	
 
 	
+	\subsubsection{POO - Programação Orientada a Objetos}	
 	\subsubsection{pgAdmin - Interface gráfica para gerenciamento do banco de dados PostgreSQL}
-	pgAdmin é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo 
+	{\it	pgAdmin é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo 
 	pode ser usado no Linux, FreeBSD, Solaris, Mac OSX e Windows para gerenciar o PostgreSQL 7.3 e acima executado em qualquer
-	 plataforma, bem como versões comerciais e derivados do PostgreSQL como Postgres Plus avançado Server e banco de dados Greenplum.\cite{pgAdmin}\\
+	 plataforma, bem como versões comerciais e derivados do PostgreSQL como Postgres Plus avançado Server e banco de dados Greenplum.\\
 	
 	pgAdmin é projetado para atender as necessidades de todos os usuários, desde escrever consultas SQL simples para o 
 	desenvolvimento de bancos de dados complexos. A interface gráfica suporta todos os recursos do PostgreSQL e facilita
 	 a administração. O aplicativo também inclui um destaque de sintaxe SQL editor, um editor de código do lado do servidor, 
 	um agente de agendamento de tarefas SQL/batch/shell,etc. Conexão com o servidor pode ser feita usando TCP / IP ou soquetes
 	 de domínio Unix (nas plataformas * nix), e pode ser criptografado SSL para a segurança. Drivers adicionais não são necessários
-	 para se comunicar com o servidor de banco de dados.
+	 para se comunicar com o servidor de banco de dados.}\cite{pgAdmin}\\
 
 	
 	Com o pgAdmin não é possível iniciar um servidor de Banco de dados no linux. É necessário um terminal para criar
 	 e configurar um servidor de banco de dados e referenciá-lo no pgAdmin.Contudo uma vez isso feito, fica fácil
 	 criar banco de dados e também editar, deletar tabelas e colunas desse banco.Como exemplo, a figura \ref{telaPgAdmin} mostra como 
-	é a tela de administração dos bancos de dados em conjunto de uma das tabelas do banco do Library Mapper. 
+	é a tela de administração dos bancos de dados em conjunto de uma das tabelas do banco do Library Mapper.\\ 
 	
 	No Library Mapper foi criado um banco de dados com o nome libraryMapperBD que utiliza a porta padrão do servidor de dados para se comunicar com o programa.
-	Os detalhes desse banco serão vistos logo em seguida.
+	Os detalhes desse banco serão vistos logo em seguida.\\
 
 	\subsubsection{PostgreSQL}
-	O PostgreSQL é um poderoso sistema gerenciador de banco de dados objeto-relacional de código aberto.  
+	{\it O PostgreSQL é um poderoso sistema gerenciador de banco de dados objeto-relacional de código aberto.  
 	Tem mais de 15 anos de desenvolvimento ativo e uma arquitetura que comprovadamente ganhou forte reputação 
 	de confiabilidade, integridade de dados e conformidade a padrões.  Roda em todos os grandes sistemas operacionais, 
 	incluindo GNU/Linux, Unix (AIX, BSD, HP-UX, SGI IRIX, Mac OS X, Solaris, Tru64), e MS Windows. É totalmente compatível
@@ -309,7 +329,7 @@ public class Node {
 	 (em múltiplas linguagens).  Inclui a maior parte dos tipos de dados do ISO SQL:1999, incluindo INTEGER, NUMERIC, BOOLEAN, 
 	CHAR, VARCHAR, DATE, INTERVAL, e TIMESTAMP.  Suporta também o armazenamento de objetos binários, incluindo figuras, sons ou
 	 vídeos.  Possui interfaces nativas de programação para C/C++, Java, .Net, Perl, Python, Ruby, Tcl, ODBC, entre outros, e 
-	uma excepcional documentação.
+	uma excepcional documentação.}
 
 
 	\begin{figure}[H]
@@ -319,13 +339,13 @@ public class Node {
 	\label{telaPgAdmin}
       	\end{figure}
 		
-	Como um banco de dados de nível corporativo, o PostgreSQL  possui funcionalidades sofisticadas como o controle de concorrência 
+	{\it Como um banco de dados de nível corporativo, o PostgreSQL  possui funcionalidades sofisticadas como o controle de concorrência 
 	multiversionado (MVCC, em inglês), recuperação em um ponto no tempo (PITR em inglês), tablespaces, replicação assíncrona, transações
 	 agrupadas (savepoints), cópias de segurança a quente (online/hot backup), um sofisticado planejador de consultas (otimizador) e registrador 
 	de transações sequencial (WAL) para tolerância a falhas.  Suporta conjuntos de caracteres internacionais, codificação de caracteres multibyte, 
 	Unicode e sua ordenação por localização, sensibilidade a caixa (maiúsculas e minúsculas) e formatação.  É altamente escalável, tanto na quantidade
 	 enorme de dados que pode gerenciar, quanto no número de usuários concorrentes que pode acomodar. Existem sistemas ativos com o PostgreSQL em
-	 ambiente de produção que gerenciam mais de 4TB de dados.  Alguns limites do PostgreSQL estão incluídos na tabela abaixo.\cite{postgresql}
+	 ambiente de produção que gerenciam mais de 4TB de dados.  Alguns limites do PostgreSQL estão incluídos na tabela abaixo.}\cite{postgresql}
 	
 	\begin{table}[H]
  	\centering
@@ -407,10 +427,74 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	\label{total}
 \end{figure}
 
-	\subsubsection{POO - Programação Orientada a Objetos}
-	\subsubsection{Mybatis - Integração MER e POO}
-	\subsubsection{Servlet - WebService JAVA}
-	\subsubsection{Apache Tomcat - Servidor WEB}
+	\subsubsection{Mybatis - Mapeando SQL para JAVA}
+	
+	Uma vez criado o banco de dados, é necessário criar métodos que permitam operar nesse BD.Contudo, para isso ser possível
+	é necessário fazer consultas em SQL no BD da aplicação, a qual está toda escrita em linguagem JAVA.Isso não é um grande 
+	problema, mas consome tempo e pasciência do programador que terá que fazer vários ajustes e códigos extras em JDBC.
+	(JDBC ou Java Database Connectivity é um conjunto de Classes e interfaces em JAVA, que conversam com qualquer Banco de dados através 
+	de envio de intruções SQL.)
+	
+	{\it MyBatis é um framework de persistência de primeira classe, com 
+	suporte para SQL personalizado, procedimentos armazenados e mapeamentos avançados. 
+	MyBatis elimina quase todo o código JDBC e ajuste manual dos parâmetros e recuperação 
+	de resultados. MyBatis pode usar XML simples ou Anotações para configuração e mapa primitivas,
+	 interfaces e POJOs Mapa Java (Plain Old Java Objects) para registros de dados.}\cite{mybatis}\\
+
+	No Library Mapper ainda foi usado uma ferramenta do Eclipse chamada {\it MyBatis Generator} que monta todo o mapeamento 
+	feito pelo Mybatis direto no projeto.Ao configurar dois arquivos, generatorConfig.xml e MapperConfig.xml, setando quais as
+	tabelas deveriam ser mapeadas para suas futuras classes no Library Mapper, tudo é gerado automaticamente pela ferramenta.\\
+
+	O mapeamento consiste em três partes:\\
+	\begin{itemize}
+	\item{As Classes Domínio}\\
+	Essas são as classes correspondentes aos atributos do Banco de Dados.Necessariamente todas as colunas de um BD têm 
+	que estar relacionadas a um atributo dessas classes, mas o contrário não é verdade.Quando um select é feito com as interfaces Mapas
+	descritas abaixo, um objeto de um dos domínios é retornado.
+	\item{As interfaces Mapas}\\
+	Essas são as interfaces JAVA com o métodos de consultas SQL e são elas que serão usadas pelo programador para fazer uma consulta
+	no banco de dados.Essas interfaces chamam os métodos implementados nos XMLs, descritos abaixo.
+	\item{Os XMLs}\\
+	Essas são as consultas com linguagem parcialmente SQL.Essas são as consultas mais próximas a uma linguagem SQL e são elas que são
+	usadas nos Bancos de Dados.Todas as consultas desses arquivos têm o mesmo nome que os métodos das interfaces Mapas.
+	\end{itemize}
+	
+	Uma vez gerado todo o mapeamento, basta criar uma nova seção e começar a usar os métodos da interface Mapas.
+	
+
+	\subsubsection{JSP, Servlets e Apache Tomcat}
+
+
+	{\it A tecnologia JavaServer Pages (JSP) permite que os desenvolvedores da Web e
+	 designers desenvolvam e mantenham de uma maneira fácil e rápida páginas Web dinâmicas 
+	. Como parte da família da tecnologia Java, a tecnologia JSP permite o rápido desenvolvimento
+	 de aplicações baseadas na Web que são independentes de plataforma. A tecnologia JSP separa
+	 a interface do usuário a partir de geração de conteúdo, permitindo aos designers para alterar
+	 o layout geral da página sem alterar o conteúdo dinâmico subjacente. JavaServer Pages é uma extensão 
+	da tecnologia Java Servlet.\\
+	
+	 Servlets são independentes de plataformas, são módulos que se encaixam perfeitamente em 
+	uma estrutura de servidor Web e podem ser usados para estender
+	 as capacidades de um servidor Web com mínima sobrecarga, manutenção e suporte. Ao contrário de outras linguagens de
+	 script, servlets não envolvem nenhuma consideração específica da plataforma ou modificações, que são componentes de
+	 aplicativos que são baixados, a pedido, para a parte do sistema que precisa deles.}\cite{jsp}\\
+
+	Apache Tomcat é uma implementação open source do Java Servlet e JavaServer Pages, responsável por manter as páginas do Library Mapper
+	na internet.
+	
+	\subsubsection{JSF2 - Managed Beans}
+	O JavaService Facelets 2 oferece muitos recursos para o desenvolvimento de uma aplicação Web Java, sendo um dos principais os Managed Beans que são
+	objetos utilizados para:
+		{\it\begin{itemize}
+	\item{Receber os dados enviados pelos usuários através das telas Web da aplicação.}
+	\item{Executar as lógicas para tratar as requisições dos usuários.}
+	\item{Disponibilizar os dados que devem ser apresentados nas telas da aplicação Web.}\cite{k19}	 	
+	\end{itemize}}
+	
+	No Library Mapper existe dois grandes Managed Beans que cuidam das interfaces Web, o MapBean.java e o SearchBean.java, sendo que o 
+	primeiro é responsável por toda a parte de criação da biblioteca e o segundo por todo o processo de busca, desde a requisição ao 
+	Colméia até a geração do Mapa com o caminho.
+	
 	\subsubsection{jQuery e JavaScript}
 	\subsubsection{HTML5 - Canvas}
       	\subsubsection{Desenvolvimento mobile}
