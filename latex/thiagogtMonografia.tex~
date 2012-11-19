@@ -1,3 +1,6 @@
+
+
+
 \documentclass[a4paper,10pt]{article}
 %\documentclass[a4paper,10pt]{scrartcl}
 \usepackage{hyperref}
@@ -18,6 +21,7 @@
 \definecolor{verde}{rgb}{0.25,0.5,0.35}
 \definecolor{jpurple}{rgb}{0.5,0,0.35}
 \usepackage{listings}
+\usepackage{float}
 
 \lstset{
   language=Java,
@@ -134,7 +138,7 @@ alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sem
    obtidas nesse mapa, localização de estantes e suas correspondentes identificações, Qr-Codes, obstáculos e limites
    da biblioteca, serão enviados e armazenados num banco de dados da aplicação.\\
    
-   \includegraphics[width=0.70\textwidth]{./imgs/merLibraryMappper.png}\\[1cm]
+   
    
    
    O mapa será gerado num grafo tipo grid e cada nó está dividido em 4 tipos principais que são QR-Code, Forbidden, Free e Bookshelf 
@@ -146,22 +150,27 @@ alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sem
 Essa busca é feita de uma maneira paralela onde cada thread é um dos pólos do caminho Bi-direcional.\\ 
   
     \subsection{Conceitos e tecnologias estudadas}
-	\begin{figure}
+	\begin{figure}[H]
 	\centering
       	\includegraphics[width=0.70\textwidth]{./imgs/esquemaLibrary.png}
 	\caption{Técnologias usadas}
 	
       \end{figure}
 
-baljsbljasbf\\
+	
       \subsubsection{O que são Qr-Codes?}
       Quick Response Code foi inventado por \href{http://www.denso-wave.com/}{DENSO WAVE}, uma empresa Japonesa de captura automática de dados, FA e campos de solução de negócios, em 1994 e foi um dos primeiros códigos de barra 2D
       a ser usado em aplicações onde era necessário uma combinação de camera de aparelhos celulares e códigos de barra 2D.\cite{barcode}Esses códigos trocam barras e espaços
       por pontos e espaços arranjados num vetor ou uma matrix, aumentando consideravelmente a quantidade de dados
       armazenados num espaço igualmente usado para um código de barra 1D.
       Apenas em 2002 cameras de celulares foram comercialmente vendidas com dispositivos reconhecedores de Qr-codes e desde
-      então uma vasta variedade de aplicativos começou a surgir no Japão e vem tomando o mundo.\\[0.80cm]
-      \includegraphics[width=0.30\textwidth]{./imgs/qrcode.png} .Em 2006, como parte do Windows Live service, a Microsoft lançou o Windows Live Barcode
+      então uma vasta variedade de aplicativos começou a surgir no Japão e vem tomando o mundo.
+	\begin{figure}[H]
+	\centering
+
+      \includegraphics[width=0.20\textwidth]{./imgs/qrcode.png} 
+      \end{figure}
+	Em 2006, como parte do Windows Live service, a Microsoft lançou o Windows Live Barcode
       , onde Qr-codes eram usados como ponte para troca de informações entre aparelhos mobile e outras medias como PCs, Tv de plasma
       e revistas.
       
@@ -185,7 +194,7 @@ baljsbljasbf\\
       
       Já num \textit{grafo direcionado} (ou \textit{dígrafo} ) uma aresta é identificada por setas e \textit{$(u,v)$} \textit{$\neq$} \textit{$(v,u)$}.
       
-     \begin{figure}
+     \begin{figure}[H]
 	\centering
       	\includegraphics[width=0.9\textwidth]{./imgs/grafo.png}\\[1cm]
       	\caption{Grafo retirado do livro \cite{bfs}}
@@ -195,7 +204,7 @@ baljsbljasbf\\
       
       Um Grid Graph ( grafo do tipo Grid ) é um grafo não-direcionado; uma grade de nós (vértices) \textit{n} x \textit{n} sendo que cada
       nó tem exatamente 4 arestas com exceção dos nós das extremidades.
-       \begin{figure}
+       \begin{figure}[H]
 	\centering
       \includegraphics[width=0.5\textwidth]{./imgs/grid.png}\\[1cm]
 	\caption{Representação de um Grid}
@@ -208,17 +217,21 @@ baljsbljasbf\\
 package library.domain;
 
 public class Node {
-
+    
     private Integer idNode;
     private Integer positionX;
     private Integer positionY;
     private Integer contentId;
     private Integer idLibrary;
-    private String contentType;
+    private String codeIdInitialShelf;
+    private String codeIdFinalShelf;
+    private String contentType;//Free,QrCode,Forbidden,Shelf
     private Node parentFromBeginNode;
     private Node parentFromEndNode;
-    private int mapValue;
-    
+    public int isInUse;
+    private Semaphore semaphore;
+    private String color;
+    private String whoMarkedThisNode;
 /*... continua ...*/
 \end{lstlisting}
       
@@ -237,12 +250,12 @@ public class Node {
 	
 	Como no pior caso, a busca tem que ser feita em todos os (m) nós de um grafo e passar por todas suas (a) arestas.Como a 
       BFS não volta nos caminhos que já traçou, a complexidade desse algoritmo é O(a).	 
-      \begin{figure}
+      \begin{figure}[H]
 	\centering
       	\includegraphics[width=0.70\textwidth]{./imgs/bfs.png}
 	\caption{BFS retirada do livro \cite{bfs}}
 	\label{./imgs/bfs.png}
-      \end{figure}\\
+      \end{figure}
       Além das cores, nesse projeto essa BFS distingue entre nós (vértices) do tipo Free, Bookshelf, Qr-Code e Forbidden e será 
       aplicada de uma maneira Bi-direcional.
       
@@ -250,32 +263,149 @@ public class Node {
 	A idéia por trás de uma busca Bi-direcional é fazer duas buscas rodarem simultaneamente - Uma "para frente", 	 
 	saindo do estado inicial (a origem) da busca inteira e outra "para trás",  saindo do estado final ( a chegada ) 
 	da busca inteira esperando que ambas se encotrem no meio.\cite{bidirecional}. 
- 	\begin{figure}
+ 	\begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{./imgs/bi-directional.png}\\[1cm]   
+	\includegraphics[width=0.8\textwidth]{./imgs/bi-directional.png}\\[1cm]   
 	\caption{BFS bi-direcional retirada do livro \cite{bidirecional}}
-      	\end{figure}\\
+      	\end{figure}
 	Nesse projeto a busca Bi-direcional será realizada através de métodos concorrentes de programação.Cada pólo
 	iniciará sua busca paralelamente liberando assim duas threads.Caso uma thread chegue em um nó que já foi 
 	visitado ela define aquele nó como o "meio do caminho" e a partir dele gera a rota inteira do mapa.Mas caso o nó que
-	chegue esteja sendo visitado, ela para e abandona o que estiver fazendo para depois ser reciclada num outro novo processo. 
-	\\Pela profundidade da busca ter caído pela metade, ou seja, no máximo uma busca tem que ir até a metade do grafo, a complexidade do algoritmo é O(a/2).
+	chegue esteja sendo visitado, ela para e abandona o que estiver fazendo para depois ser reciclada num outro novo processo.
+	Nas próximas seções serão demonstradas com maiores detalhes, como essa busca foi implementada no Library Mapper.
+ 
+	Pela profundidade da busca ter caído pela metade, ou seja, no máximo uma busca tem que ir até a metade do grafo, a 
+	complexidade do algoritmo é O(a/2).
 	
-	\subsubsection{MER - Modelo Entidade Relacionamento}
-	\subsubsection{PostgreSQL}
+
+	
 	\subsubsection{pgAdmin - Interface gráfica para gerenciamento do banco de dados PostgreSQL}
-	\href{''http://www.pgadmin.org/index.php''}{pgAdmin} é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo pode ser usado no Linux, FreeBSD, Solaris, Mac OSX e Windows para gerenciar o PostgreSQL 7.3 e acima executado em qualquer plataforma, bem como versões comerciais e derivados do PostgreSQL como Postgres Plus avançado Server e banco de dados Greenplum.\\
+	pgAdmin é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo 
+	pode ser usado no Linux, FreeBSD, Solaris, Mac OSX e Windows para gerenciar o PostgreSQL 7.3 e acima executado em qualquer
+	 plataforma, bem como versões comerciais e derivados do PostgreSQL como Postgres Plus avançado Server e banco de dados Greenplum.\cite{pgAdmin}\\
 	
-	pgAdmin é projetado para atender as necessidades de todos os usuários, desde escrever consultas SQL simples para o desenvolvimento de bancos de dados complexos. A interface gráfica suporta todos os recursos do PostgreSQL e facilita a administração. O aplicativo também inclui um destaque de sintaxe SQL editor, um editor de código do lado do servidor, um agente de agendamento de tarefas SQL/batch/shell,etc. Conexão com o servidor pode ser feita usando TCP / IP ou soquetes de domínio Unix (nas plataformas * nix), e pode ser criptografado SSL para a segurança. Drivers adicionais não são necessários para se comunicar com o servidor de banco de dados.
-	\begin{figure}
+	pgAdmin é projetado para atender as necessidades de todos os usuários, desde escrever consultas SQL simples para o 
+	desenvolvimento de bancos de dados complexos. A interface gráfica suporta todos os recursos do PostgreSQL e facilita
+	 a administração. O aplicativo também inclui um destaque de sintaxe SQL editor, um editor de código do lado do servidor, 
+	um agente de agendamento de tarefas SQL/batch/shell,etc. Conexão com o servidor pode ser feita usando TCP / IP ou soquetes
+	 de domínio Unix (nas plataformas * nix), e pode ser criptografado SSL para a segurança. Drivers adicionais não são necessários
+	 para se comunicar com o servidor de banco de dados.
+
+	
+	Com o pgAdmin não é possível iniciar um servidor de Banco de dados no linux. É necessário um terminal para criar
+	 e configurar um servidor de banco de dados e referenciá-lo no pgAdmin.Contudo uma vez isso feito, fica fácil
+	 criar banco de dados e também editar, deletar tabelas e colunas desse banco.Como exemplo, a figura \ref{telaPgAdmin} mostra como 
+	é a tela de administração dos bancos de dados em conjunto de uma das tabelas do banco do Library Mapper. 
+	
+	No Library Mapper foi criado um banco de dados com o nome libraryMapperBD que utiliza a porta padrão do servidor de dados para se comunicar com o programa.
+	Os detalhes desse banco serão vistos logo em seguida.
+
+	\subsubsection{PostgreSQL}
+	O PostgreSQL é um poderoso sistema gerenciador de banco de dados objeto-relacional de código aberto.  
+	Tem mais de 15 anos de desenvolvimento ativo e uma arquitetura que comprovadamente ganhou forte reputação 
+	de confiabilidade, integridade de dados e conformidade a padrões.  Roda em todos os grandes sistemas operacionais, 
+	incluindo GNU/Linux, Unix (AIX, BSD, HP-UX, SGI IRIX, Mac OS X, Solaris, Tru64), e MS Windows. É totalmente compatível
+	 com ACID, tem suporte completo a chaves estrangeiras, junções (JOINs), visões, gatilhos e procedimentos armazenados
+	 (em múltiplas linguagens).  Inclui a maior parte dos tipos de dados do ISO SQL:1999, incluindo INTEGER, NUMERIC, BOOLEAN, 
+	CHAR, VARCHAR, DATE, INTERVAL, e TIMESTAMP.  Suporta também o armazenamento de objetos binários, incluindo figuras, sons ou
+	 vídeos.  Possui interfaces nativas de programação para C/C++, Java, .Net, Perl, Python, Ruby, Tcl, ODBC, entre outros, e 
+	uma excepcional documentação.
+
+
+	\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{./imgs/pgAdminLibrary.png}\\[1cm]   
 	\caption{tela de administração pgAdmin e tabela de dados}
-      	\end{figure}\\
+	\label{telaPgAdmin}
+      	\end{figure}
+		
+	Como um banco de dados de nível corporativo, o PostgreSQL  possui funcionalidades sofisticadas como o controle de concorrência 
+	multiversionado (MVCC, em inglês), recuperação em um ponto no tempo (PITR em inglês), tablespaces, replicação assíncrona, transações
+	 agrupadas (savepoints), cópias de segurança a quente (online/hot backup), um sofisticado planejador de consultas (otimizador) e registrador 
+	de transações sequencial (WAL) para tolerância a falhas.  Suporta conjuntos de caracteres internacionais, codificação de caracteres multibyte, 
+	Unicode e sua ordenação por localização, sensibilidade a caixa (maiúsculas e minúsculas) e formatação.  É altamente escalável, tanto na quantidade
+	 enorme de dados que pode gerenciar, quanto no número de usuários concorrentes que pode acomodar. Existem sistemas ativos com o PostgreSQL em
+	 ambiente de produção que gerenciam mais de 4TB de dados.  Alguns limites do PostgreSQL estão incluídos na tabela abaixo.\cite{postgresql}
 	
-	Com o pgAdmin não é possível iniciar um servidor de Banco de dados no linux. É necessário um terminal para criar e configurar um servidor de banco de dados e referenciá-lo no pgAdmin.Contudo uma vez isso feito, fica fácil criar banco de dados e também editar, deletar tabelas e colunas desse banco.
-	
-	No Library Mapper foi criado um banco de dados com o nome libraryMapperBD que utiliza a porta padrão do servidor de dados para se comunicar com o programa.
+	\begin{table}[H]
+ 	\centering
+	\begin{tabular}{|l|c|} \hline
+		Tamanho Máximo do Banco de Dados &  ilimitado\\ \hline
+		Tamanho máximo de uma Tabela  &	32 TB\\ \hline
+		Tamanho Máximo de uma Linha &	1.6 TB\\ \hline
+		Tamanho Máximo de um Campo  & 	1 GB\\ \hline
+		Máximo de Linhas por Tabela &	Ilimitado\\ \hline
+		Máximo de Colunas por Tabela & 	250–1600 dependendo do tipo de coluna\\ \hline
+Máximo de Índices por Tabela & 	Ilimitado\\ \hline
+	\end{tabular}
+	\caption{Dados retirados do site \href{http://www.postgresql.org.br/sobre}{PostgreSQL}}
+	\label{t_fixa}
+\end{table}	
+	O banco de dados usado pelo Library Mapper é criado para armazenar a matriz que se refere ao mapa da biblioteca, 
+	representada aqui por Mapa(i,j).\\O banco contém 4 tabelas:
+\begin{itemize}
+\item{library}\\[0.3cm]
+\includegraphics[width=0.20\textwidth]{./imgs/librayBD.png} 
+
+Essa tabela foi criada para o cliente ter liberdade de criar inúmeras versões de bibliotecas e também carregá-las quando queira.\\
+
+idLibrary: o id de cada nova biblioteca criada.\\
+size\_X: número de colunas na matriz Mapa(i,j).\\
+size\_Y: número de linhas na matriz Mapa(i,j).\\
+
+
+\item{node}\\[0.3cm]	
+\includegraphics[width=0.30\textwidth]{./imgs/nodeBD.png}\\
+
+Cada Node equivale a uma posição na matriz Mapa(i,j)
+
+idNode: o id de cada novo Node. \\
+positionX: coluna j na matriz Mapa(i,j). \\
+positionY: linha i na matriz Mapa(i,j).\\
+contentsType: Tipo do Node, podendo variar entre Free, Forbidden, QrCode ou Shelf.\\
+contentsId: Uma vez definido qual o tipo do Node é necessário saber qual o seu id na tabela relacionada.Caso não possua uam tabela, como é o caso
+ de Free e Forbidden, o ContentsId é um valor desnecessário\\
+idLibrary: o id da biblioteca a qual pertence.\\\\
+
+\item{bookshelf}\\[0.3cm]
+\includegraphics[width=0.30\textwidth]{./imgs/bookShelfBD.png}\\	
+
+Quando uma bookshelf é criada ela recebe dois identificadores, sendo um referente ao primeiro livro contido nela e o outro o último.Dessa maneira, é possível
+identificar o range de livros contido nela.Mas para ser possível fazer uma busca no banco de dados nesse range, é necessário retirar dois
+valores inteiros, sendo um o início e o outro o fim do range.Por isso a tabela bookshelf divide os identificadores em 3 partes: prefixo ,codeId
+e versão.Dessa maneira, com a identificação do prefixo mais a verificação no range da estante, é possível retornar uma consulta precisa da estante
+que se encontra o livro.A figura \ref{parser} mostra a maneira como uma das duas indentificações é dividida para ser guardada no banco de dados.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.40\textwidth]{./imgs/estanteParseada.png}\\[1cm]   
+	\caption{Identificação da estante parseada.}
+	\label{parser}
+\end{figure}
+
+idBookShelf: o  id de cada nova estante\\
+idLibrary: o id da biblioteca a qual pertence.\\
+prefixCodeIdInitial: prefixo incial da estante\\
+codeIdInitial:range inicial da estante\\
+versionCodeIdInitial:versão inicial da estante\\
+prefixCodeIdFinal:prefixo final da estante\\
+codeIdFinal:range final da estante\\
+versionCodeIdFinal:versão final da estante
+\item{qr\_cod\_mark}\\[0.3cm]
+
+\includegraphics[width=0.20\textwidth]{./imgs/qrCodeBD.png}\\	
+
+idQrMark: id de cada novo QrCode\\
+url:\\
+idLibrary:\\
+\end{itemize}
+	A imagem abaixo ilustra o banco de dados completo.
+\begin{figure}[H]
+	\centering
+
+	\includegraphics[width=0.70\textwidth]{./imgs/merLibraryMappper.png}\\[1cm]	
+	\caption{Identificação da estante parseada.}
+	\label{total}
+\end{figure}
 
 	\subsubsection{POO - Programação Orientada a Objetos}
 	\subsubsection{Mybatis - Integração MER e POO}
@@ -309,7 +439,8 @@ public class Node {
   \subsection{Relações entre Disciplinas}
   \subsection{Os próximos passos}
   
-  
 \bibliographystyle{plain}   
-\bibliography{refer}
+\bibliography{refer}  
 \end{document}
+
+
