@@ -450,13 +450,20 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	\item{As Classes Domínio}\\
 	Essas são as classes correspondentes aos atributos do Banco de Dados.Necessariamente todas as colunas de um BD têm 
 	que estar relacionadas a um atributo dessas classes, mas o contrário não é verdade.Quando um select é feito com as interfaces Mapas
-	descritas abaixo, um objeto de um dos domínios é retornado.
+	descritas abaixo, um objeto de um dos domínios é retornado.\\
+
+	Library.java, BookShelf.java, Node.java e QrCodeMark.java são as classes domínio no Library Mapper.\\
+
 	\item{As interfaces Mapas}\\
 	Essas são as interfaces JAVA com o métodos de consultas SQL e são elas que serão usadas pelo programador para fazer uma consulta
-	no banco de dados.Essas interfaces chamam os métodos implementados nos XMLs, descritos abaixo.
+	no banco de dados.Essas interfaces chamam os métodos implementados nos XMLs, descritos abaixo.\\
+		
+	LibraryMapper.java, BookShelfMapper.java, NodeMapper.java e QrCodeMarkMapper.java são as interface Mapas no Library Mapper.\\
 	\item{Os XMLs}\\
 	Essas são as consultas com linguagem parcialmente SQL.Essas são as consultas mais próximas a uma linguagem SQL e são elas que são
-	usadas nos Bancos de Dados.Todas as consultas desses arquivos têm o mesmo nome que os métodos das interfaces Mapas.
+	usadas nos Bancos de Dados.Todas as consultas desses arquivos têm o mesmo nome que os métodos das interfaces Mapas.\\
+
+	LibraryMapper.xml, BookShelfMapper.xml, NodeMapper.xml e QrCodeMarkMapper.xml são os XMLs de consulta do Library Mapper.\\
 	\end{itemize}
 	
 	Uma vez gerado todo o mapeamento, basta criar uma nova seção e começar a usar os métodos da interface Mapas.
@@ -495,8 +502,36 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	primeiro é responsável por toda a parte de criação da biblioteca e o segundo por todo o processo de busca, desde a requisição ao 
 	Colméia até a geração do Mapa com o caminho.
 	
-	\subsubsection{jQuery e JavaScript}
+	\subsubsection{JavaScript e jQuery}
+	 JavaScript é uma linguagem de script baseada no padrão ECMAScript, aprovado como um padrão internacional ISO/IEC 16262, em abril de 1998,
+	 utilizada para programação client-side em navegadores web.Foi inventada por Brendan Eich na Netscape e primeiro
+	apareceu no navegador Navigator 2,0 da empresa . Ele já apareceu em todos os browsers Netscape subseqüentes e em todos os navegadores da Microsoft começando com Internet Explorer 
+	3.0.\cite{javascript}\\
+
+	{\it jQuery é uma biblioteca JavaScript rápida e concisa que simplifica num documento HTML o tratamento da manipulação de eventos, animação
+	 e interações Ajax para desenvolvimento web rápido.}\cite{jquery} \\
+	
+	No Library Mapper o javaScript foi usado para criar métodos que ajudassem na lógica das interfaces e também para criar objetos
+	semelhantes aos usados na parte JAVA, como no caso das estantes, qrCode e blocos livres e proibidos ao usuário passar.\\
+	 
+	O jQuery teve papel fundamental na parte responsável pela edição via Web do mapa da bilbioteca.Métodos como {\it resize}, {\it drag} e {\it drop}
+	foram utilizados para possibilitar que um desses objetos javaScript descritos anteriormente se tornassem modeláveis através da interface Web.     
+
 	\subsubsection{HTML5 - Canvas}
+	{\it Hypertext Markup Language ou HTML é a linguagem de publicação da World Wide Web.}\cite{html}Atualmente na versão 5, o HTML
+	possui novas funcionalidades e consegue realizar tarefas que antes só conseguia realizar através de outras ferramentas, como por exemplo
+	carregar arquivos locais.\\
+
+	Funcionando como um conteiner de processamento gráfico (gráfico de jogos, arte ou imagens) provê scripts para a renderização desses gráficos.
+	Pode gerar qualquer tipo de forma, com qualquer tipo de cor, textura, etc e por isso, no Library Mapper é usado para gerar os mapas
+	já com os caminhos mapeados, para o visitante que procuram por um livro.\\
+
+	A classe responsável por esse script canvas é a CanvasMap.java que divide a criação do mapa em duas partes: Uma do carregamento do mapa
+	 sem o caminho e outra para o desenho do resultado da busca.O primeiro caso é resolvido pelo método loadNodesFromBD(out) que verifica se
+	a matriz Mapa(i,j) já foi carregada pelo Library Mapper, carregando ou não do banco de dados (dependendo da resposta) e transforma cada Node
+	dessa matriz num quadrado colorido no mapa mostrado ao usuário.
+
+
       	\subsubsection{Desenvolvimento mobile}
 	\subsubsection{Métodos Ágeis - Kanban e Integração Contínua}
 	
