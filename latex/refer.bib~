@@ -33,30 +33,37 @@ title ={Desenvolvimento Web com JSF2 e JPA2},
 publisher= {K19 Treinamentos},
 year=2011
 }
+@book{poo,
+author ={Dennis de Champeaux},
+title ={Object-Oriented Development Process and Metrics},
+publisher= {Prentice-Hall},
+year=1997
+}
+
 @misc{canvas,
-	author={},
+	author={W3C Canvas official page},
 	howpublished = "\url{http://dev.w3.org/html5/spec/single-page.html#the-canvas-element}"
 }
 
 @misc{jquery,
-	author={jQuery oficial page},
+	author={jQuery official page},
 	howpublished = "\url{http://jquery.com/}"
 }
 @misc{html,
-	author={W3C oficial page},
+	author={W3C official page},
 	howpublished = "\url{http://www.w3.org/html/}"
 }
 @misc{mybatis,
-	author={Mybatis oficial page},
+	author={Mybatis official page},
 	howpublished = "\url{http://www.mybatis.org/core/index.html}"
 }
 @misc{jsp,
-	author={Oracle oficial page},
+	author={Oracle official page},
 	howpublished = "\url{http://www.oracle.com/technetwork/java/overview-138580.html}"
 }
 
 @misc{pgAdmin,
-	author={pgAdmin page},
+	author={pgAdmin official page},
 	howpublished = "\url{http://www.pgadmin.org/index.php}"
 }
 
@@ -64,6 +71,14 @@ year=2011
 @misc{postgresql,
 	author={Postgresql Brasil community page},
 	howpublished = "\url{http://www.postgresql.org.br/sobre}"
+}
+@misc{mobile,
+	author={IOS Human Interface Guideline page},
+	howpublished = "\url{http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/MobileHIG/Introduction/Introduction.html}"
+}
+@misc{ic,
+	author={Martin Fowler official page},
+	howpublished = "\url{http://martinfowler.com/articles/continuousIntegration.html#PracticesOfContinuousIntegration}"
 }
 
 

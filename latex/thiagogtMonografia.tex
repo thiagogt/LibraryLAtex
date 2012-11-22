@@ -84,7 +84,7 @@
 \newpage
 
 \textit{ Agradeço a minha mãe Mara Lucia Gomes Toledo e a meu pai João Batista Toledo por terem me dado a oportunidade de realizar 
-meu sonho; A minha esposa Lucianna Thomaz Almeida Toledo por me dar conforto, ajuda e sábias dicas; A meu filho que me traz
+meu sonho; A OPUS-Software por proporcionar diversos recursos para a realização desse sonho; A minha esposa Lucianna Thomaz Almeida Toledo por me dar conforto, ajuda e sábias dicas; A meu filho que me traz
 alegria só por imaginar seu rosto e a Deus por ter me dado todos e tudo que sempre precisei.}
 
 
@@ -298,7 +298,7 @@ public class Node {
 	
 
 	
-	\subsubsection{POO - Programação Orientada a Objetos}	
+	
 	\subsubsection{pgAdmin - Interface gráfica para gerenciamento do banco de dados PostgreSQL}
 	{\it	pgAdmin é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo 
 	pode ser usado no Linux, FreeBSD, Solaris, Mac OSX e Windows para gerenciar o PostgreSQL 7.3 e acima executado em qualquer
@@ -527,18 +527,25 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	já com os caminhos mapeados, para o visitante que procuram por um livro.\\
 
 	A classe responsável por esse script canvas é a CanvasMap.java que divide a criação do mapa em duas partes: Uma do carregamento do mapa
-	 sem o caminho e outra para o desenho do resultado da busca.O primeiro caso é resolvido pelo método loadNodesFromBD(out) que verifica se
-	a matriz Mapa(i,j) já foi carregada pelo Library Mapper, carregando ou não do banco de dados (dependendo da resposta) e transforma cada Node
-	dessa matriz num quadrado colorido no mapa mostrado ao usuário.
+	 sem o caminho traçado da busca e outra para o desenho do resultado da busca.O primeiro caso é resolvido pelo método {\it loadNodesFromBD(StringBuilder out)} que verifica se
+	a matriz Mapa(i,j) já foi carregada pelo Library Mapper, carregando ou não do banco de dados (dependendo da resposta) e transformando cada Node
+	dessa matriz num quadrado colorido no mapa mostrado ao usuário.O parametro {\it out} passado é uma StringBuilder do JAVA, responsável por guardar o que será escrito no arquivo do mapa desenhado .xhtml.\\
+
+	O segundo caso é resolvido pelo método {\it loadSearch(StringBuilder out, Book selectedBook)} que fica  responsável por extrair as posições de saída (QrCode - retirado da URL que iniciou a seção) e chegada (estante do livro - retirada do livro {\it selectedBook}) da procura pelo livro e por chamar a busca dessas posições.
 
 
       	\subsubsection{Desenvolvimento mobile}
-	\subsubsection{Métodos Ágeis - Kanban e Integração Contínua}
-	
+	{\it As pessoas apreciam aplicativos iOS que sentem como se eles fossem projetados especificamente para o dispositivo. Por exemplo, quando um aplicativo se encaixa bem na tela do dispositivo e responde aos gestos que as pessoas conhecem, que fornece grande parte da experiência as quais as pessoas estão procurando. E, embora as pessoas possam não estar cientes dos princípios de design de interface humana, como a manipulação direta ou consistência, esses usuários podem dizer quando os aplicativos seguem esses princípios e quando não.Ao começar a projetar um aplicativo iOS, certifique-se de compreender e aprender como incorporar os princípios de design HI de modo que você possa oferecer ao usuário uma experiência pessoal que ele irá apreciar.}\cite{mobile}\\
+
+	Inicialmente o Library Mapper foi desenvolvido apenas para se encaixar nos padrões IOS, especificamente para iPhones.Por isso toda sua interface e a maneira como o usuário opera o Library Mapper foi pensada para proporcionar uma experiência rápida e de fácil compreensão.Um exemplo é a página inicial de busca semelhante a usada pelo Google, que permite que o usuário reconheça facilmente que se trata de uma página de busca, pois já está familiarizado com o padrão.Outro exemplo é a idéia de um mapa ao invés de coordenadas descritivas como vire a esquerda na estante x, depois a direita, etc.Os botões estilizados para o toque e a lista de livros ocupando a tela inteira são outros exemplos também.
+	\subsubsection{Integração Contínua}
+	{\it	Integração Contínua é uma prática de desenvolvimento de software onde os membros de uma equipe integram seu trabalho frequentemente, geralmente cada pessoa integra pelo menos diariamente - levando a múltiplas integrações por dia. Cada integração é verificada por uma compilação automatizada (incluindo teste) para detectar erros de integração, o mais rapidamente possível.}\cite{ic}\\
+
+	Por mais estranho que pareça falar de Integração Contínua para um time de uma única pessoa, chegou um ponto durante a criação do Library Mapper que essa técnica, ou parte dela, tornou-se essencial pois eu estava trabalhando nele em 3 lugares diferentes, com horários completamente diferentes de um dia para outro.Comecei a comitar tudo que eu fazia, indiferente se estava certo ou errado, pois assim conseguia continuar do ponto certo de onde parei.Também comecei a me policiar a tentar comitar algo todo dia, porque estava com o tempo muito restrito para desenvolver o projeto, afinal tinha que diviví-lo entre trabalho, casa recém comprada, faculdade e médico para meu futuro filho. 	   
    \subsection{Library Mapper, o cliente}
 	Essa seção é reservada para explicar toda a parte relacionada ao cliente da aplicação e, nesse caso, o cliente é o responsável pela biblioteca.O único trabalho desse cliente é montar a biblioteca pela interface Web, identificando cada estante corretamente e onde ficarão os QR-Codes.
 	Nessa primeira versão do Library Mapper, os qr-codes criados no programa são armazenados no banco de dados da aplicação e não há como identificá-los sem ter que olhar no BD pela ordem que foram criados.
-	\subsubsection{Construindo o seu mapa Web}
+	\subsubsection{Construindo o seu mapa Web} 	
 	
 	\subsubsection{Transformação do JavaScript para Nodes}
 	\subsubsection{Salvando no Banco de Dados}
