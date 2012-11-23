@@ -298,7 +298,7 @@ public class Node {
 	
 
 	
-	\subsubsection{POO - Programação Orientada a Objetos}	
+	
 	\subsubsection{pgAdmin - Interface gráfica para gerenciamento do banco de dados PostgreSQL}
 	{\it	pgAdmin é o recurso de administração Open-Source para o banco de dados PostgreSQL. O aplicativo 
 	pode ser usado no Linux, FreeBSD, Solaris, Mac OSX e Windows para gerenciar o PostgreSQL 7.3 e acima executado em qualquer
@@ -545,7 +545,45 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
    \subsection{Library Mapper, o cliente}
 	Essa seção é reservada para explicar toda a parte relacionada ao cliente da aplicação e, nesse caso, o cliente é o responsável pela biblioteca.O único trabalho desse cliente é montar a biblioteca pela interface Web, identificando cada estante corretamente e onde ficarão os QR-Codes.
 	Nessa primeira versão do Library Mapper, os qr-codes criados no programa são armazenados no banco de dados da aplicação e não há como identificá-los sem ter que olhar no BD pela ordem que foram criados.
-	\subsubsection{Construindo o seu mapa Web}
+	\subsubsection{Construindo o seu mapa Web} 
+	
+		Para a construção do mapa da biblioteca para o Library Mapper, existe uma interface Web que auxilia todo o processo de construção e identificação das estantes.Acessando http://host/LibraryMapper/faces/WebLibraryMapper/mapCreation.xhtml uma tela com um espaço definido para construção junto de todos acessórios para montagem do mapa aparecerão, como mostrado na figura  \ref{mapCreation}.\\
+
+	Desses acessórios existe um botão Save para salvar o mapa no Banco de dados e quatro objetos para montagem da biblioteca:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.90\textwidth]{./imgs/mapCreation.png}\\[1cm]   
+	\caption{Interface Web para criação de mapas.}
+	\label{mapCreation}
+\end{figure}	
+
+\begin{itemize}	
+	\item{{\bf Background  }}\\
+		O objeto background deve ser utilizado para montar o chão da biblioteca, ou seja, é a base da biblioteca e tudo deve ser montado em cima dele.Uma vez o mapa transformado na matriz utilizada pelo Library Mapper, a parte do Background que não possua nada em cima será definida como um Node do tipo Free. 	
+	\item{{\bf Qr Code  }}\\	
+		O objeto Qr Code deve ser colocado na mesma posição onde será colocado na biblioteca física, pois senão o usuário encontrará problemas para se orientar no mapa.Uma vez o mapa transformado na matriz utilizada pelo Library Mapper, cada parte do QrCode gerado será um Node do tipo QrCode. 	
+	\item{{\bf Forbidden  }}\\
+		O objeto Forbidden deve ser enterpretado, com exceção das estantes, como qualquer obstáculo existente na biblioteca: vasos, colunas, esculturas, ou seja, qualquer coisa que impeça o usuário de passar por aquele espaço específico.Uma vez o mapa transformado na matriz utilizada pelo Library Mapper, cada parte do Forbidden gerado será um Node do tipo Forbidden.	
+	\item{{\bf BookShelf }}\\
+		O objeto BookShelf deve ser enterpretado como {\bf uma parte da estante} física, ou a estante inteira, dependendo dos livros que ela possui.Uma estante é definida por dois identificadores, sendo um de início referente ao primeiro livro da estante e um de fim, referente ao último livro da estante.No caso da biblioteca do IME-USP a identificação é feita dessa maneira e começa no topo esquerdo da estante ew termina no piso direito da mesma, como mostrado na figura \ref{estante}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.60\textwidth]{./imgs/estanteIME.png}\\[1cm]   
+	\caption{Referencia a organização de uma estante na biblioteca IME-USP}
+	\label{estante}
+\end{figure}
+
+Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma estante inteira igual a estante física como na figura \ref{variasEstantes}.b, porém caso existam vários tipos de conjuntos de prefixos devem ser criadas n estantes do Library Mapper, onde n é o número de conjuntos contidos na estante física, como mostrado na figura \ref{variasEstantes}.a.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.80\textwidth]{./imgs/estantes.png}\\[1cm]   
+	\caption{A figura (a) mostra uma estante física dividida em várias estantes do Library Mapper enquanto a figura (b)
+	mostra apenas uma única estante.}
+	\label{variasEstantes}
+\end{figure}
+
+ 	Essa interpreteção é importante porque dado que o mapa é definido numa superfície 2D não existe outra maneira de separar grupos diferentes de livros numa mesma estante, a não ser colocando uns do lado dos outros.
+	\end{itemize}
 	
 	\subsubsection{Transformação do JavaScript para Nodes}
 	\subsubsection{Salvando no Banco de Dados}
