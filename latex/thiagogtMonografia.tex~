@@ -565,7 +565,7 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	\item{{\bf Forbidden  }}\\
 		O objeto Forbidden deve ser enterpretado, com exceção das estantes, como qualquer obstáculo existente na biblioteca: vasos, colunas, esculturas, ou seja, qualquer coisa que impeça o usuário de passar por aquele espaço específico.Uma vez o mapa transformado na matriz utilizada pelo Library Mapper, cada parte do Forbidden gerado será um Node do tipo Forbidden.	
 	\item{{\bf BookShelf }}\\
-		O objeto BookShelf deve ser enterpretado como {\bf uma parte da estante} física, ou a estante inteira, dependendo dos livros que ela possui.Uma estante é definida por dois identificadores, sendo um de início referente ao primeiro livro da estante e um de fim, referente ao último livro da estante.No caso da biblioteca do IME-USP a identificação é feita dessa maneira e começa no topo esquerdo da estante ew termina no piso direito da mesma, como mostrado na figura \ref{estante}.
+		O objeto BookShelf deve ser enterpretado como {\bf uma parte da estante} física, ou a estante inteira, dependendo dos livros que ela possui.Uma estante é definida por dois identificadores, sendo um de início referente ao primeiro livro da estante e um de fim, referente ao último livro da estante.No caso da biblioteca do IME-USP a identificação é feita dessa maneira e começa no topo esquerdo da estante e termina no piso direito da mesma, como mostrado na figura \ref{estante}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.60\textwidth]{./imgs/estanteIME.png}\\[1cm]   
@@ -585,6 +585,11 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
  	Essa interpreteção é importante porque dado que o mapa é definido numa superfície 2D não existe outra maneira de separar grupos diferentes de livros numa mesma estante, a não ser colocando uns do lado dos outros.
 	\end{itemize}
 	
+	Outro aspecto desses objetos é que eles podem ter seu tamanho e sua posição mudados dentro da área reservada de desenho do mapa, apenas 
+	clicando no objeto e arrastando.Essa propiedade se dá graças ao jQuery e seus métodos {\bf draggable e resizable}.Importante também é o
+	fato de tudo isso acontecer apenas dentro dessa área reservada para o desenho do mapa, porque senão a tela ficaria completamente desordenada.
+	Essa área é a única que permite que objetos sejam \"dropados\" para a criação de um mapa e isso é possível graças ao método {\bf droppable} do jQuery
+	também.
 	\subsubsection{Transformação do JavaScript para Nodes}
 	\subsubsection{Salvando no Banco de Dados}
    \subsection{Library Mapper, o usuário}
