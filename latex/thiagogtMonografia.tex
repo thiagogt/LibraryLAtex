@@ -502,7 +502,7 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	primeiro é responsável por toda a parte de criação da biblioteca e o segundo por todo o processo de busca, desde a requisição ao 
 	Colméia até a geração do Mapa com o caminho.
 	
-	\subsubsection{JavaScript e jQuery}
+	\subsubsection{JavaScript, jQuery e JSON}
 	 JavaScript é uma linguagem de script baseada no padrão ECMAScript, aprovado como um padrão internacional ISO/IEC 16262, em abril de 1998,
 	 utilizada para programação client-side em navegadores web.Foi inventada por Brendan Eich na Netscape e primeiro
 	apareceu no navegador Navigator 2,0 da empresa . Ele já apareceu em todos os browsers Netscape subseqüentes e em todos os navegadores da Microsoft começando com Internet Explorer 
@@ -511,12 +511,20 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	{\it jQuery é uma biblioteca JavaScript rápida e concisa que simplifica num documento HTML o tratamento da manipulação de eventos, animação
 	 e interações Ajax para desenvolvimento web rápido.}\cite{jquery} \\
 	
+	JSON {\it (JavaScript Object Notation) é um formato de troca de dados leve. É fácil para os seres humanos
+	 lerem e escreverem. É fácil para máquinas para analisar e gerar. É baseado em um subconjunto da linguagem de programação
+	 JavaScript. JSON é um formato de texto que é completamente independente
+	 do idioma, mas usa convenções que são familiares aos programadores da família-C de línguas, incluindo C, C + +, C \#, Java,
+	 JavaScript, Perl, Python, e muitos outros. Essas propriedades fazem JSON uma linguagem de troca de dados ideal.}\cite{JSON}\\
+
+
 	No Library Mapper o javaScript foi usado para criar métodos que ajudassem na lógica das interfaces e também para criar objetos
 	semelhantes aos usados na parte JAVA, como no caso das estantes, qrCode e blocos livres e proibidos ao usuário passar.\\
 	 
 	O jQuery teve papel fundamental na parte responsável pela edição via Web do mapa da bilbioteca.Métodos como {\it resize}, {\it drag} e {\it drop}
-	foram utilizados para possibilitar que um desses objetos javaScript descritos anteriormente se tornassem modeláveis através da interface Web.     
+	foram utilizados para possibilitar que um desses objetos javaScript descritos anteriormente se tornassem modeláveis através da interface Web.\\     
 
+	O JSON foi responsável por fazer a conversão dos objetos criados na interface Web em um parâmetro compreensível para o Libray Mapper.
 	\subsubsection{HTML5 - Canvas}
 	{\it Hypertext Markup Language ou HTML é a linguagem de publicação da World Wide Web.}\cite{html}Atualmente na versão 5, o HTML
 	possui novas funcionalidades e consegue realizar tarefas que antes só conseguia realizar através de outras ferramentas, como por exemplo
@@ -591,6 +599,30 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	Essa área é a única que permite que objetos sejam {\it dropados} para a criação de um mapa e isso é possível graças ao método {\bf droppable} do jQuery
 	também.
 	\subsubsection{Transformação do JavaScript para Nodes}
+		Uma vez definido os objetos que formarão o mapa da biblioteca, o usuário clica no botão Save para salvar no banco de dados 
+	da aplicação.No meio desse processo existe um passo importante, que é a transformação da informação Web para algo compreensível para
+	o Library Mapper poder usar.\\
+
+	A maneira de descrever as partes do mapa como objetos foi proposital, dado que cada uma dessas partes é um objeto do JavaScript, como
+	mostrado no exemplo abaixo na criação de um objeto do tipo Shelf.
+      \begin{lstlisting}	
+	mapObject = new Object();
+	var tempType = $(".shelf").eq(i).attr("class").split(' ');
+	mapObject.type = tempType[0]; 
+	mapObject.id = $(".shelf").eq(i).attr("id");
+	mapObject.top = $(".shelf").eq(i).position().top;
+	mapObject.left = $(".shelf").eq(i).position().left;
+	mapObject.height = $(".shelf").eq(i).height();
+	mapObject.width = $(".shelf").eq(i).width();
+	mapObject.shelfId = IdEstantes[shelf]; 
+      \end{lstlisting}					
+
+	Nesse caso em particular, existe um atributo a mais que é o shelfId, pois o tipo estante é o único com identificador físico.Cada objeto
+	obtem suas informações das classes definidas nos botões HTML (bloco, forbidden, qrCode e shelf), que ao serem arrastados geram
+	um clone com suas propiedades as quais serão atribuídas a um objeto no momento que o botão Save for clicado.\\
+
+	Esse objeto será adicionado numa pilha junto com todos os que foram criados e, uma vez terminado o empilhamento, o JSON se encarrega
+	de transformar toda a pilha numa grande String, a qual será passada para o Managed Bean MapBean através de um hidden input do HTML.
 	\subsubsection{Salvando no Banco de Dados}
    \subsection{Library Mapper, o usuário}
 	\subsubsection{Identificando o usuário}
