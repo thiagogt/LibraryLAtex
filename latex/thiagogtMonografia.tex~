@@ -598,7 +598,7 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	fato de tudo isso acontecer apenas dentro dessa área reservada para o desenho do mapa, porque senão a tela ficaria completamente desordenada.
 	Essa área é a única que permite que objetos sejam {\it dropados} para a criação de um mapa e isso é possível graças ao método {\bf droppable} do jQuery
 	também.
-	\subsubsection{Transformação do JavaScript para Nodes}
+	\subsubsection{JavaScript para Nodes e Nodes para o Banco de Dados}
 		Uma vez definido os objetos que formarão o mapa da biblioteca, o usuário clica no botão Save para salvar no banco de dados 
 	da aplicação.No meio desse processo existe um passo importante, que é a transformação da informação Web para algo compreensível para
 	o Library Mapper poder usar.\\
@@ -621,10 +621,23 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	obtem suas informações das classes definidas nos botões HTML (bloco, forbidden, qrCode e shelf), que ao serem arrastados geram
 	um clone com suas propiedades as quais serão atribuídas a um objeto no momento que o botão Save for clicado.\\
 
-	Esse objeto será adicionado numa pilha junto com todos os que foram criados e, uma vez terminado o empilhamento, o JSON se encarrega
-	de transformar toda a pilha numa grande String, a qual será passada para o Managed Bean CreationBean
-	\subsubsection{Salvando no Banco de Dados}
+	Esse objeto será adicionado numa pilha junto com todos os que foram criados e, uma vez terminado o empilhamento, a biblioteca JSON se encarrega
+	de transformar toda a pilha numa grande String, a qual será passada para o Managed Bean MapBean através de um hidden input do HTML.\\
+
+	Uma vez que essa String é pega pelo MapBean, ele parseia cada item com o auxílio do JSON e transforma em objetos JsonMap, montando um 
+	array com cada objeto criado.Após criar esse array de objetos JsonMap ele os divide de acordo com seus tipos em diferentes listas de Nodes,
+	ou seja, o tipo bloco vai para uma lista de Node com contentType Free, shelf para uma lista de Node com contentType Shelf, qrCode uma lista 
+	de Node com contentType	QrCode e forbidden uma lista de Node com contentType Forbidden.Essa divisão é necessária devida a particularidade de alguns tipos.\\ 
+
+	Durante o processo de transformação toda a área reservada da interface web é ajustada para o padrão do Library Mapper 
+	e é montada uma matriz de Nodes.Um exemplo é número de posições que serão ocupadas por uma estante na matriz de Nodes, que é baseado no seu comprimento 
+	e largura na interface Web.Essa matriz é mandada para o banco de dados que 
+	grava cada nó numa tabela Node, verificando o tipo de cada um para poder também gravar nas tabelas BookShelf e QrCodeMark os respectivos
+	tipos Shelf e QrCode desse Node. \\
+	
    \subsection{Library Mapper, o usuário}
+	Essa seção é reservada para explicar toda a parte relacionada ao usuário da aplicação, que para essa versão do Library Mapper são os visitantes da biblioteca.
+		
 	\subsubsection{Identificando o usuário}
 	\subsubsection{A consulta e a ligação com a biblioteca}
 	\subsubsection{Lista de livros e a busca pela estante}
