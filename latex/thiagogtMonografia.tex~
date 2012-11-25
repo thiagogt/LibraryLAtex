@@ -678,11 +678,22 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 
 		\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{./imgs/colmeia.png}\\[0.5cm]   
+	\includegraphics[width=0.45\textwidth]{./imgs/colmeia.png}\\[0.5cm]    
 	\caption{Conversa entre Colméia e Library Mapper}
 	\label{colmeia}
 \end{figure}
 	\subsubsection{Lista de livros e a busca pela estante}
+		A lista retornada pelo serviço da biblioteca deve ser {\it tratada}  para que o Library Mapper possa mostrar	 uma lista
+	 compreensível para o usuário.
+	Como o Colméia retorna um arquivo XML, esse arquivo é parseado com o objetivo de retirar cada livro dessa lista.\\
+
+	Ao receber a lista como resposta ao POST realizado pelo ServiceWeb, o SearchBean envia essa lista para 
+	a classe ParseColmeiaXML.java poder
+	transformar todo o conteúdo parseado do XML para uma lista de Objetos Books.Caso outra biblioteca não retorne como resposta um XML, 
+	 basta criar uma classe no mesmo esquema da ParseColmeiaXML.java, sendo que esta compreenda a resposta enviada
+	pelo serviço da biblioteca e fazer o SearchBean chamá-la.\\
+		
+	
 	\subsubsection{Montando o mapa com HTML5 e canvas}
    \subsection{Atividades realizadas}
 	
