@@ -334,7 +334,7 @@ public class Node {
 
 	\begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{./imgs/pgAdminLibrary.png}\\[1cm]   
+	\includegraphics[width=0.87\textwidth]{./imgs/pgAdminLibrary.png}\\[1cm]   
 	\caption{tela de administração pgAdmin e tabela de dados}
 	\label{telaPgAdmin}
       	\end{figure}
@@ -560,7 +560,7 @@ idLibrary:o id da biblioteca a qual esse QrCode pertence\\
 	Desses acessórios existe um botão Save para salvar o mapa no Banco de dados e quatro objetos para montagem da biblioteca:
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.90\textwidth]{./imgs/mapCreation.png}\\[1cm]   
+	\includegraphics[width=0.95\textwidth]{./imgs/mapCreation.png}\\[1cm]   
 	\caption{Interface Web para criação de mapas.}
 	\label{mapCreation}
 \end{figure}	
@@ -639,8 +639,51 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	Essa seção é reservada para explicar toda a parte relacionada ao usuário da aplicação, que para essa versão do Library Mapper são os visitantes de uma biblioteca.
 		
 	\subsubsection{Identificando o usuário}
+		O primeiro contato que o visitante tem com o Library Mapper é através de um QrCode com o endereço da aplicação e, para
+	acessá-lo ele precisa estar perto desse Qr-Code para poder identificá-lo.Portanto, o uso da posição desse Qr-Code parece bastante
+	razoável como ponto de partida para a busca do livro que o usuário procura.\\
+
+		A URL contida no Qr-Code possui o endereço para a aplicação com o id desse Qr-Code. A página extrai esse id e manda para o 
+	Managed Bean SearchBean.java junto da consulta que o usuário digitar.Esse id é a cordenada XY do QR-Code 
+	que o SearchBean guarda durante toda essa seção de busca.Quando esse id é gerado, ele multiplica a posição X do objeto 
+	JavaScript por 10 elevado ao número de casas máximo de Y e soma o valor de Y ao resultado.Logo, para obter o inverso é so dividir
+	pela mesma potência de 10, atribuindo esse resultado para X e o resto para Y.No exemplo da figura \ref{url},o qual refere-se
+	ao Qr-Code da bilbioteca do IME, o número de casas máximo foi 2 pois o maior valor da posição Y é 57.\\
+	
+	
+
+		\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.50\textwidth]{./imgs/url.png}\\[1cm]   
+	\caption{Exemplo de id do Qr-Code passado pela URL}
+	\label{url}
+\end{figure}
+	
 	\subsubsection{A consulta e a ligação com a biblioteca}
+
+	Como descrito na seção anterior, o Qr-Code selecionado pelo visitante possui um id com a posição dele no mapa do Library Mapper 
+	e uma
+	URL para uma página de busca de livros da biblioteca.Nessa página o visitante deve escrever um nome de um livro, ou o autor, 
+	ou editora,
+	 algo que torne possível reconhecer o livro desejado, para que uma consulta possa ser realizada no banco de dados dessa biblioteca.\\
+	
+	A consulta é enviada para o SearchBean que chama a classe ServiceWeb.java para montar e enviar a requisição ao serviço da biblioteca.\\
+
+	Como essa busca será realizada no banco de dados da biblioteca, o Library Mapper se restringe a apenas enviar uma consulta para um serviço 
+	 dessa biblioteca e esperar por uma resposta desse serviço, pois dessa maneira nenhuma quebra de protocolo de segurança ou ameaça de
+	 alteração de 
+	dados poderá ser feita.No caso da biblioteca do IME o serviço chamado pertence ao Colméia, onde a consulta é enviada através 
+	de uma requisição
+	POST e é retornado um XML contendo uma lista de possíveis livros, como mostrado na figura \ref{colmeia}.
+
+		\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{./imgs/colmeia.png}\\[0.5cm]   
+	\caption{Conversa entre Colméia e Library Mapper}
+	\label{colmeia}
+\end{figure}
 	\subsubsection{Lista de livros e a busca pela estante}
+	
 	\subsubsection{Montando o mapa com HTML5 e canvas}
    \subsection{Atividades realizadas}
 	
