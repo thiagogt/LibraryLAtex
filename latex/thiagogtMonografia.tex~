@@ -682,19 +682,70 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	\caption{Conversa entre Colméia e Library Mapper}
 	\label{colmeia}
 \end{figure}
-	\subsubsection{Lista de livros e a busca pela estante}
+	\subsubsection{Lista de livros }
 		A lista retornada pelo serviço da biblioteca deve ser {\it tratada}  para que o Library Mapper possa mostrar	 uma lista
 	 compreensível para o usuário.
 	Como o Colméia retorna um arquivo XML, esse arquivo é parseado com o objetivo de retirar cada livro dessa lista.\\
 
 	Ao receber a lista como resposta ao POST realizado pelo ServiceWeb, o SearchBean envia essa lista para 
 	a classe ParseColmeiaXML.java poder
-	transformar todo o conteúdo parseado do XML para uma lista de Objetos Books.Caso outra biblioteca não retorne como resposta um XML, 
+	transformar todo o conteúdo parseado do XML em uma lista de Objetos Books.Caso outra biblioteca não retorne como resposta um XML, 
 	 basta criar uma classe no mesmo esquema da ParseColmeiaXML.java, sendo que esta compreenda a resposta enviada
 	pelo serviço da biblioteca e fazer o SearchBean chamá-la.\\
-		
+
+	Com os objetos books colocados numa lista, o SearchBean guarda essa lista para ser usada na próxima página que aparecerá
+	para o usuário, a bookSelection.xhtml.Nessa página aparecerá essa lista de Books com apenas os títulos de cada livro e um botão 
+	Back,
+	para realizar uma nova busca, como mostrado na figura.\ref{selectBook} a.
+
+		\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{./imgs/selectBook.png}\\[0.5cm]    
+	\caption{Exemplo da lista de livros e a página de informações mostradas para o visitante  }
+	\label{selectBook}
+
+\end{figure}
+	Quando um livro é selecionado, uma nova página com informações sobre o livro aparecerá o qual será guardado pelo SearchBean (figura.\ref{selectBook} b), para caso o
+	usuário realmente queira traçar a rota até esse livro.\\
 	
+			
 	\subsubsection{Montando o mapa com HTML5 e canvas}
+
+	Quando o usuário escolhe traçar o mapa até o livro, o SearchBean cria uma nova instância da classe CanvasMap.java que irá gerar
+	o mapa com a rota até o livro em duas etapas:
+
+\begin{itemize}	
+	\item{ Desenhando todo o Mapa sem o resultado da busca}
+
+	\item{ Desenhando o resultado da busca por cima do mapa}\\	
+\end{itemize}
+	Cada Node da matriz da biblioteca é interpretada pelo CanvasMap como um quadrado que varia de cor de acordo com seu ContentType.
+	Essa interpretação é feita pelo método {\it createJavaScriptForImpression}, que cria blocos de códigos script CANVAS.
+	O CanvasMap irá gerar muitos blocos de linhas de código script CANVAS numa StringBuilder que será escrita no arquivo .xhtml referente 
+	ao mapa final do usuário,pois cada um dos Nodes será um bloco a ser transformado.Abaixo segue um exemplo do bloco de um Node com o 
+	contentType Forbidden.\\
+      \begin{lstlisting}	
+	ctx.beginPath();
+		ctx.fillStyle = "black";
+		ctx.fillRect(0,0,10,10);
+	ctx.closePath();
+      \end{lstlisting}					
+
+	As cores escolhidas para esse mapa foram :
+
+\begin{itemize}	
+	\item{ Free = white}
+	\item{ Forbidden e Shelf(não escolhida)= black}
+	\item{ QrCode = yellow }
+	\item{ Shelf(escolhida) = blue}
+	\item{ Caminho retornado pela busca = red}
+\end{itemize}
+	Como o script do CANVAS desenhado é lido de cima para baixo, foi mais conveniente sobreescrever antigos blocos criados do que
+	verificar se a posição onde esse novo bloco iria ser desenhado já existia para ser editado e por isso, o desenho do mapa é dividido em duas partes, onde a
+	primeira desenha todo o mapa e a segunda apenas sobreescreve os blocos existentes com os da rota de busca.  
+	
+	  
+	\subsubsection{A busca pela estante}
    \subsection{Atividades realizadas}
 	
    \subsection{Resultados e produtos obtidos}
