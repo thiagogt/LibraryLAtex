@@ -742,15 +742,73 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 \end{itemize}
 	Como o script do CANVAS desenhado é lido de cima para baixo, foi mais conveniente sobreescrever antigos blocos criados do que
 	verificar se a posição onde esse novo bloco iria ser desenhado já existia para ser editado e por isso, o desenho do mapa é dividido em duas partes, onde a
-	primeira desenha todo o mapa e a segunda apenas sobreescreve os blocos existentes com os da rota de busca.  
+	primeira desenha todo o mapa e a segunda apenas sobreescreve os blocos existentes com os da rota de busca.\\	  
 	
-	  
+	Quando a primeira busca do Library Mapper é realizada, todo o mapa é buscado do banco de dados, guardado numa matriz no GlobalUtils e 
+	só então é gerado o script CANVAS da matriz de Nodes do GlobalUtils.Todo esse processo toma muito tempo, pois carregar todos os dados do
+	Banco de dados é uma operação demorada.Contudo a partir dessa busca, todo o mapa desenhado é baseado na matriz que se encontra
+	no GlobalUtils, tornando a criação do mapa .xhtml muito mais rápida. 
 	\subsubsection{A busca pela estante}
-   \subsection{Atividades realizadas}
+
+	O CanvasMap recebe do SearchBean três parametros: A StringBuilder que será escrita no arquivo .xhtml, o livro selecionado e o própio SearchBean.
+	Após esse passo, o CanvasMap cria blocos script CANVAS para as estantes do livro escolhido e os grava na StringBuilder, para
+	finalmente chamar a classe MonitorSearch.java responsável por cuidar da busca.\\
+
+	O MonitorSearch criará duas Threads SearchGrid.java que realizarão a busca bi-direcional, sendo que uma busca sairá da posição da estante
+	do livro e outra da do Qr-Code.As buscas feitas por essas duas Threads só pararão quando a flag {\it stopAllOtherTasks} do
+	 monitorSearch for setada.\\
+
+	Cada Thread SearchGrid fará uma busca em largura com algumas condições a mais.Da mesma maneira que na BFS clássica, os
+	nós do grafo( o grafo nesse caso é a matriz de Nodes) mudam de cor conforme vão sendo visitados e são representados pelo atributo
+	{\it color} da classe Node, seguindo o padrão de cores estabelecida no 	\cite{bidirecional}.\\
+
+	Como agora um nó do grafo pode ser alterado por Threads diferentes, podem ocorrer casos das duas Threads estarem vendo o mesmo nó
+	ao mesmo tempo.Para isso, cada nó Node possui um semáforo  {\it semaphore} e uma flag {\it estaEmUsoParalelo} que cuidam dessa situação,
+	impedindo deadlocks e garantindo exclusão mútua.\\
+
+	Para determinar o final da busca, cada Thread tem três opções:
+
+	\begin{itemize}	
+		\item{ A Thread A encontrou o nó destino e a Thread B não chegou a executar.}
+		\item{ A Thread A encontrou um nó preto que foi marcado pela Thread B }
+		\item{ A Thread A encontrou um nó cinza que foi marcado pela Thread B }\\
+
+			Devido ao segundo e do terceiro caso, durante a busca foi necessário identificar quem tinha marcado cada nó e 
+	por isso atribuiu-se a cada Node a variável {\it fromWhoInicialNodeComes}.
+
+	
+	\end{itemize}
+	
+	Caso uma das três situações for atingida,a flag {\it stopAllOtherTasks} é setada e é desenhado o mapa do ponto de encontro
+	 das duas Threads até os pontos de origem
+	 de cada Thread de busca(Qr-Code
+	e estante). Isso só é possível porque cada Node possui dois atributos, parentFromBeginNode e parentFromEndNode que definem os parents de cada
+	nó vindo da Thread do início ou do fim da busca.A não ser no caso do nó de encontro, nunca ambos valores estaráo preenchidos e 
+	portanto é possível montar a primeira metade, depois a segunda metade e por fim juntar ambas formando o caminho completo.\\
+
+	Esse caminho é uma lista de Nodes que é retornada para o CanvasMap ,o qual se encarrega de criar blocos script CANVAS para desenhar 
+	a rota do Qr-Code até a estante onde se encontra o livro.
+
+
+   \subsection{Caso de Uso}
+	O caso de uso para o Library Mapper foi a biblioteca do Instituto de Matemática e Estatística em parceria com
+	o sistema de banco de dados Colméia.Foi realizada uma catalogação de
+	cada estante e desenhada em proporção todos os itens incluindo estantes, colunas e qualquer obstáculo do primeiro andar dessa biblioteca.
+	
 	
    \subsection{Resultados e produtos obtidos}
+	Com o programa finalizado todas as buscas realizadas por livros do primeiro andar, retornaram com sucesso o caminho certo.Com exceção
+	da primeira busca realizada pelo Library Mapper, foi possível encontrar o livro buscado em menos de 2 minutos.
+	
    \subsection{Conclusões}
-
+	
+	Infelizmente ele não resolve por completo o problema de uma busca por um livro numa biblioteca, pois ainda existe uma grande parcela desse problema atrelado
+	a má organização feita pela biblioteca.Contudo como esse é um problema enfrentado por qualquer sistema de busca em ambientes internos, o Library
+	Mapper por não apenas encontrar o livro, mas também mostrar o caminho de onde está o visitante até o item que procura é uma ferramenta poderosa e muito eficiente.\\	
+	
+	O Library Mapper cumpre com excelência o mapeamento de um ambiente interno e auxilía  o visitante desse lugar a encontrar o que 
+	procura,levando esse direto ao livro que busca sem perda de tempo ou pasciência, tornando a visita muito mais agradável e proveitosa.
+	
    
   \section{Parte Subjetiva}
   \subsection{Desafios e frustrações}
