@@ -774,7 +774,7 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 		\item{ A Thread A encontrou um nó cinza que foi marcado pela Thread B }\\
 
 			Devido ao segundo e do terceiro caso, durante a busca foi necessário identificar quem tinha marcado cada nó e 
-	por isso atribuiu-se a cada Node a variável {\it fromWhoInicialNodeComes}.
+	por isso atribuiu-se a cada Node a variável {\it whoMarkedThisNode}.
 
 	
 	\end{itemize}
@@ -809,10 +809,83 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	O Library Mapper cumpre com excelência o mapeamento de um ambiente interno e auxilía  o visitante desse lugar a encontrar o que 
 	procura,levando esse direto ao livro que busca sem perda de tempo ou pasciência, tornando a visita muito mais agradável e proveitosa.
 	
-   
+   	\newpage
   \section{Parte Subjetiva}
   \subsection{Desafios e frustrações}
+	A inexperiência com alguma ferramentas do projeto me tomaram muito tempo durante esse projeto.Em particular:
+	\begin{itemize}	
+		\item{ 	o jQuery com o métodos droppable, draggable e resizable que foram muito difíceis de configurar e acertar os css
+	corretos; }
+		\item{ o timeout do Apache-Tomcat.Para montar uma biblioteca como a do IME, levava-se cerca de uma hora e meia para completar tudo
+	e nesse tempo a seção expirava.Mas colocando no web.xml do projeto 
+\begin{lstlisting}	
+    <session-config>  
+      <session-timeout>QUANTIDADE EM MINUTOS DE CADA SECAO </session-timeout>  
+    </session-config>   
+\end{lstlisting}	o problema foi resolvido.Contudo, isso só pode ser setado durante a criação do Mapa.}
+		\item{ o synchronized do JAVA não estava funcionando para minha busca paralela e tive que montar meu própio esquema de paralelismo.}\\
+	\end{itemize}	
+
+	Um problema frustante foi a maneira como a biblioteca cataloga alguma das suas estantes. Em alguns casos existiam mais de 15 conjuntos
+	de livros diferentes, tornando quase impossível nomear uma estante. A solução foram criar várias exceções tratando esses casos, o que 
+	aumentou a distância para um modelo mais geral de classificação de estantes numa biblioteca.
+
+	Mas o maior desafio foi desenvolver o projeto nos últimos seis meses em meio a casamento, pintura do apartamento (o qual eu praticamente
+	fiz sozinho e foram 2 mãos e em algumas até 3!!), procura de coisas para a casa nova, trabalho de 40 horas semanais, outra matéria da faculdade,
+	médico para esposa e arrumação da casa, pois a esposa estava grávida e ainda trabalhando.Esse problema eu ainda não sei bem como foi resolvido,
+	mas tomaram algumas madrugadas e todos finais de semana.\\
   \subsection{Relações entre Disciplinas}
+\begin{itemize}	
+	\item{\bf{Introdução à Computação}}\\
+
+	{\it Eu posso até não saber essa linguagem de programação, mas me dê o manual dela que em uma semana eu te ensino como ela funciona.}\\
+	
+	Essa foi a frase que eu ouvi no meu primeiro dia no IME pelo professor Roberto Hirata e desde então é dessa maneira que
+	tento conduzir minha profissão,aceitando cada desafio que possa me fazer crescer.\\
+
+	Introdução a Computação foi a matéria mais importante que tive no IME, porque foi o primeiro passo para um mundo sem limites, foi onde
+	aprendi uma nova linguagem chamada programação, onde eu era capaz de criar tudo que minha imaginação me permitissee por enquanto
+	ela me permitiu o Library Mapper.	
+
+	
+	\item{\bf{Princípios de Desenvolvimento de Algoritmos}}\\
+
+	Além de aprender conceitos essenciais para desenvolver qualquer programa, como listas ligadas, vetores, pilhas, filas,alguns algoritmos
+	de busca (BFS por exemplo) e foi
+	onde aprendi com o Professor Arnaldo Mandel que o conhecimento de verdade só chega para aqueles que estudam muito.
+	
+	
+	\item{\bf{Laboratório de programação I e II}}\\
+
+	Em ambas as matérias foi onde comecei a aprender a desenvolver um projeto grande e como dividir esse projeto em pedaços para
+	que ele se torne passível de ser resolvido.Mas foi em Laborátorio de programação II onde conheci o conceito do QR-Code e foi onde trabalhei 
+	pela primeira vez com essa técnologia.
+
+	\item{\bf{Estrutura de Dados}}\\
+		Em estrutura de dados além de aprender novas estruturas de listas ligadas, árvores e buscas referentes a essas estruturas,
+	reaforcei muitos conceitos que tinha aprendido anteriormente em Princípios de Desenvolvimento de Algoritmos.
+			
+	\item{\bf{Algoritmos em Grafos}}\\
+
+	Foi onde aprendi o que é um grafo, toda a parte de busca que pode ser feita nele e quais são os melhores algoritmos de busca
+	para cada tipo de grafo.
+
+	\item{\bf{Análise de Algoritmos}}\\
+	
+	Em análise aprendi de como analisar de verdade um algoritmo e sua complexidade e o quão importante é fazer esse estudo, 
+	antes de projetar um software.
+
+	\item{\bf{Conceitos de Programação}}\\
+
+	Foi em conceitos que vi pela primeira vez o conceito de Orientação a Objetos, paradigma usado no Library Mapper.
+
+	\item{\bf{Banco de Dados}}\\
+	
+	
+	\item{\bf{Programação Concorrente, Paralela e Distribuída}}\\
+	\item{\bf{XP - eXtreme Programing}} \\
+	\item{\bf{Física I e II}}  	\\
+\end{itemize}	
   \subsection{Os próximos passos}
   
 \bibliographystyle{plain}   
