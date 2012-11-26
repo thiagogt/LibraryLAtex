@@ -875,17 +875,45 @@ Caso uma estante seja um conjunto de livros do mesmo prefixo, então tem-se uma 
 	Em análise aprendi de como analisar de verdade um algoritmo e sua complexidade e o quão importante é fazer esse estudo, 
 	antes de projetar um software.
 
-	\item{\bf{Conceitos de Programação}}\\
+	\item{\bf{Conceitos de Linguagens de Programação}}\\
 
-	Foi em conceitos que vi pela primeira vez o conceito de Orientação a Objetos, paradigma usado no Library Mapper.
+	Foi em Conceitos, como é conhecida pelos alunos do IME, que vi pela primeira vez o conceito de Orientação a Objetos, paradigma usado no Library Mapper.
 
-	\item{\bf{Banco de Dados}}\\
-	\item{\bf{Programação Concorrente, Paralela e Distribuída}}\\
-	\item{\bf{XP - eXtreme Programing}} \\
-	\item{\bf{Física I e II}}  	\\
+	\item{\bf{Sistemas de Banco de Dados}}\\
+	
+	Na disciplina Sistema de Banco de Dados aprendi como é criada uma arquitetura de BD e onde tive o primeiro contato com a linguagem	
+	SQL e toda parte de otimização de um modelo de banco de dados. 
+	
+	
+	\item{\bf{Sistemas Operacionais e Programação Concorrente, Paralela e Distribuída}}\\
+
+	Trabalhar com programas que são estruturados para funcionar de uma maneira paralela, ou concorrente é uma tarefa que acho muito 
+	desafiadora e também genial.Utilizei uma busca paralela no Library Mapper e todo o conceito de monitores, semáforo, deadlock, etc.. 
+	aprendi nas disciplinas Sistemas Operacionais e Programação Concorrente, Paralela e distribuída.
+
+	\item{\bf{XP - eXtremme Programming}} \\
+	
+	A alguns anos antes de cursas a disciplina de XP já tinha participado de duas conferências sobre métodos Ágeis, uma no IME-USP que foi o 
+	Encontro Ágil 2010 e o outro foi a Ágile Brasil 2011 em Fortaleza.Ou seja, já estava familiarizado com alguns conceitos ágeis e de	
+	extremme programming e, justamente por isso, queria aprender mais sobre o assunto.\\
+
+	Acabei conhecendo a idéia de integração contínua usada de uma maneira diferente no Library Mapper e também tive o primeiro
+	contato com o CANVAS HTML, porque meu projeto era justamente montar um conversor de arquivos .SVG para um script CANVAS HTML.		
+	
 \end{itemize}	
   \subsection{Os próximos passos}
-  
+  	
+    Através de um maior contato com as pessoas que realmente entendem como funciona uma biblioteca, 
+	quero compreender melhor como é feito esse método de organização, para poder tornar o 
+	Library Mapper cada vez mas genérico e fácil de usar.\\
+
+   Existe a possibilidade de estender o Library Mapper para feiras de eventos, Museus, Shoppings, ou qualquer ambiente que precise
+	de um mapeamento do seu ambiente interno, devido a sua interface Web de criação de mapas.Seria necessário apenas personalizar para
+	as necessidades do cliente como por exemplo feiras de eventos, que bastaria trocar as estantes por estandes e adequar o formato da 
+	busca.\\
+
+	Durante o começo do semestre estava trabalhando em um projeto que integrava museus e suas obras a redes sociais através de um Qr-Code e
+	seria muito interessante associar essa aplicação ao Library Mapper.
 \bibliographystyle{plain}   
 \bibliography{refer}  
 \end{document}
